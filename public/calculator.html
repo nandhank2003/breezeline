@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interior Fit-Out Estimation</title>
+    <link rel="stylesheet" href="/css/calculator.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>Get Your Interior Fit-Out Estimate</h1>
+            <p>Fill in the details below to receive an accurate estimate for your project</p>
+        </header>
+
+        <main class="main-content">
+            <form id="estimationForm" class="estimation-form">
+                <div class="form-group">
+                    <label for="projectType">Project Type</label>
+                    <select id="projectType" name="projectType" required>
+                        <option value="">Select Project Type</option>
+                        <option value="1BHK">1BHK</option>
+                        <option value="2BHK">2BHK</option>
+                        <option value="3BHK">3BHK</option>
+                        <option value="Studio Apartment">Studio Apartment</option>
+                        <option value="Office">Office</option>
+                        <option value="Retail Shops">Retail Shops</option>
+                        <option value="F&B">F&B</option>
+                        <option value="Villa Renovation">Villa Renovation</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="projectClass">Project Class</label>
+                    <select id="projectClass" name="projectClass" required>
+                        <option value="">Select Class</option>
+                        <option value="Standard">Standard</option>
+                        <option value="Premium">Premium</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="area">Area (sqm)</label>
+                    <input type="text" id="area" name="area" placeholder="Enter area in sqm" required>
+                    <span class="error-message" id="areaError"></span>
+                </div>
+
+                <button type="submit" class="btn-primary">Get Estimate</button>
+            </form>
+
+            <div id="result" class="result-section" style="display: none;">
+                <h2>Your Estimated Cost</h2>
+                <div class="price-display">
+                    <span class="price" id="totalPrice">AED 0</span>
+                </div>
+                <p class="result-details">Based on your selection: <span id="resultDetails"></span></p>
+                <button class="btn-secondary" onclick="resetForm()">Calculate Another</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Contact Modal -->
+    <div id="contactModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Contact Details</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="contactForm" class="contact-form">
+                <div class="form-group">
+                    <label for="phone">UAE Phone Number</label>
+                    <input type="tel" id="phone" name="phone" placeholder="+971 XX XXX XXXX" required>
+                    <span class="error-message" id="phoneError"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" placeholder="your@email.com" required>
+                    <span class="error-message" id="emailError"></span>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-secondary" id="cancelBtn">Cancel</button>
+                    <button type="submit" class="btn-primary">Submit & Get Estimate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+   <script src="/js/calculator.js"></script>
+</body>
+</html>

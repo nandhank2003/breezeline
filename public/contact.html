@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Contact Breezeline Interiors | Trusted Interior Designing Company in Dubai | Luxury Interior Fit-Out Company">
+    <meta name="keywords" content="contact, luxury interiors, Dubai interior design, fit-out company">
+    <meta name="author" content="Breezeline Interiors">
+    <title>Contact Us - Breezeline Interiors | Trusted Interior Designing Company in Dubai</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="/css/contact.css">
+</head>
+<body>
+    
+    <!-- Navigation (Updated to match index.html) -->
+    <header>
+        <nav>
+            <div class="nav-brand">
+                <div class="logo">
+                    <img src="logo.png" alt="Breezeline Interiors Logo">
+                </div>
+                <div class="company-name">
+                    <span class="name-main">BREEZELINE</span>
+                    <span class="name-sub">INTERIORS</span>
+                </div>
+            </div>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li class="nav-dropdown">
+                    <a href="project.html" class="dropdown-trigger">Works</a>
+                    <ul class="dropdown-menu">
+                        <li><a href="project.html">All Projects</a></li>
+                        <li><a href="project.html?category=commercial">Commercial Projects</a></li>
+                        <li><a href="project.html?category=residential">Residential Projects</a></li>
+                        <li><a href="project.html?category=retail">Retail Showrooms</a></li>
+                        <li><a href="project.html?category=office">Office Fitouts</a></li>
+                        <li><a href="project.html?category=healthcare">Health Care Solutions</a></li>
+                        <li><a href="project.html?category=food">F&B Solutions</a></li>
+                        <li><a href="project.html?category=hotel">Hotel Interior Design</a></li>
+                        <li><a href="project.html?category=exhibitions">Exhibitions</a></li>
+                    </ul>
+                </li>
+                <li><a href="contact.html" class="active">Contact</a></li>
+                <li><a href="calculator.html" class="cta-link">Estimation Calculator</a></li>
+            </ul>
+            
+            <div class="hamburger" id="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+        
+        <!-- Hero Section -->
+        <section class="hero-contact">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <h1>Get In Touch</h1>
+                <p>We'd love to hear from you. Let's create something extraordinary together.</p>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section class="contact-section">
+            <div class="container">
+                <div class="contact-wrapper">
+                    
+                    <!-- Contact Form -->
+                    <div class="contact-form-container">
+                        <h2>Send Us a Message</h2>
+                        <form class="contact-form" id="contactForm">
+                            <div class="form-group">
+                                <input type="text" id="name" name="name" placeholder="Your Name" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="email" id="email" name="email" placeholder="Your Email" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="tel" id="phone" name="phone" placeholder="Phone Number">
+                            </div>
+                            
+                            <div class="form-group">
+                                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <select id="service" name="service" required>
+                                    <option value="">Select a Service</option>
+                                    <option value="residential">Residential Design</option>
+                                    <option value="commercial">Commercial Design</option>
+                                    <option value="hospitality">Hospitality Design</option>
+                                    <option value="consultation">Consultation</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <textarea id="message" name="message" placeholder="Your Message" rows="6" required></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary">Send Message</button>
+                        </form>
+                    </div>
+
+                    <!-- Contact Information -->
+                    <div class="contact-info-container">
+                        <h2>Contact Information</h2>
+                        
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Address</h3>
+                                <p>Dubai Marina, Dubai, UAE</p>
+                                <p>Office Building, Floor 5</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Phone</h3>
+                                <p><a href="tel:+971589850165">+971 58 985 0165</a></p>
+                                <p><a href="tel:+971502691799">+971 50 269 1799</a></p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Email</h3>
+                                <p><a href="mailto:info@breezeline.ae">info@breezeline.ae</a></p>
+                                <p><a href="mailto:projects@breezeline.ae">projects@breezeline.ae</a></p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-content">
+                                <h3>Business Hours</h3>
+                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
+                                <p>Saturday: 10:00 AM - 2:00 PM</p>
+                            </div>
+                        </div>
+
+                        <!-- Company Profile Download -->
+                        <div class="profile-download">
+                            <h3>Our Company Profile</h3>
+                            <p>Download our comprehensive company profile to learn more about our services and portfolio.</p>
+                            <a href="/BREEZELINE INTERIORS PROFILE.pdf" download class="btn btn-gold">
+                                <i class="fas fa-download"></i> Download Profile
+                            </a>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="social-section">
+                            <h3>Follow Us</h3>
+                            <div class="social-links">
+                                <a href="https://wa.me/971501234567" target="_blank" rel="noopener" aria-label="WhatsApp">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin-in"></i>
+                                </a>
+                                <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Map Section -->
+        <section class="map-section">
+            <div class="container">
+                <h2>Find Us on Map</h2>
+                <div class="map-container">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3610.6485847376833!2d55.14006761491216!3d25.08865399999999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e5f6e1234567890%3A0x1234567890abcdef!2sDubai%20Marina!5e0!3m2!1sen!2sae!4v1234567890" width="100%" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer (Updated to match index.html) -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-left">
+                    <div class="footer-logo">
+                        <div class="logo">
+                            <img src="logo.png" alt="Breezeline Interiors Logo">
+                        </div>
+                        <span class="footer-name">BREEZELINE INTERIORS</span>
+                    </div>
+                    <p>&copy; 2025 Breezeline Interiors. All rights reserved.</p>
+                </div>
+                
+                <div class="footer-right">
+                    <div class="social-links">
+                        <a href="https://wa.me/971501234567" target="_blank" rel="noopener" aria-label="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://facebook.com" target="_blank" rel="noopener" aria-label="Facebook">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="https://linkedin.com" target="_blank" rel="noopener" aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="https://instagram.com" target="_blank" rel="noopener" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Hidden Admin Login -->
+        <a href="admin-login.html" class="admin-login" aria-hidden="true" tabindex="-1"></a>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/contact.js"></script>
+</body>
+</html>

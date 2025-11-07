@@ -1,0 +1,200 @@
+const express = require('express');
+const nodemailer = require('nodemailer');
+const cors = require('cors');
+const path = require('path');
+require('dotenv').config();
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Middleware
+app.use(cors());
+app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
+
+// Email configuration
+const createTransporter = () => {
+    return nodemailer.createTransport({
+        service: 'gmail',   // ✅ Use 'gmail' for Gmail
+        auth: {
+            user: process.env.EMAIL_USER,   // your Gmail address
+            pass: process.env.EMAIL_PASS    // <-- APP PASSWORD here
+        }
+    });
+};
+
+// Price configuration (same as frontend)
+const PRICE_LIST = {
+    '1BHK': { Standard: 2600, Premium: 3200 },
+    '2BHK': { Standard: 3500, Premium: 4000 },
+    '3BHK': { Standard: 4500, Premium: 5000 },
+    'Studio Apartment': { Standard: 2200, Premium: 2800 },
+    'Office': { Standard: 4200, Premium: 4800 },
+    'Retail Shops': { Standard: 5500, Premium: 6500 },
+    'F&B': { Standard: 5800, Premium: 6500 },
+    'Villa Renovation': { Standard: 6500, Premium: 9000 }
+};
+
+// Routes
+app.post('/submit-estimation', async (req, res) => {
+    try {
+        const { projectType, projectClass, area, phone, email, totalPrice } = req.body;
+
+        // Validate required fields
+        if (!projectType || !projectClass || !area || !phone || !email || !totalPrice) {
+            return res.status(400).json({
+                success: false,
+                message: 'All fields are required'
+            });
+        }
+
+        // Verify the calculated price
+        const expectedPrice = PRICE_LIST[projectType][projectClass] * parseFloat(area);
+        if (Math.abs(expectedPrice - parseFloat(totalPrice)) > 1) {
+            console.warn('Price mismatch detected', { expectedPrice, totalPrice });
+        }
+
+        // Send email to admin
+        await sendAdminEmail({ projectType, projectClass, area, phone, email, totalPrice });
+
+        // Send confirmation email to client
+        await sendClientConfirmation({ projectType, projectClass, area, email, totalPrice });
+
+        res.json({
+            success: true,
+            message: 'Estimation submitted successfully',
+            data: { totalPrice }
+        });
+
+    } catch (error) {
+        console.error('Error submitting estimation:', error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error'
+        });
+    }
+});
+
+// Send email functions
+async function sendAdminEmail(estimationData) {
+    const transporter = createTransporter();
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: process.env.ADMIN_EMAIL || process.env.EMAIL_USER,
+        subject: `New Interior Fit-Out Estimation - ${estimationData.projectType}`,
+        html: generateAdminEmailTemplate(estimationData)
+    };
+
+    await transporter.sendMail(mailOptions);
+}
+
+async function sendClientConfirmation(estimationData) {
+    const transporter = createTransporter();
+
+    const mailOptions = {
+        from: process.env.EMAIL_USER,
+        to: estimationData.email,
+        subject: 'Your Interior Fit-Out Estimation',
+        html: generateClientEmailTemplate(estimationData)
+    };
+
+    await transporter.sendMail(mailOptions);
+}
+
+// Email templates
+function generateAdminEmailTemplate(data) {
+    const formattedPrice = new Intl.NumberFormat('en-AE', { style: 'currency', currency: 'AED' }).format(data.totalPrice);
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; color: #333; }
+            .header { background: #d4af37; color: #000; padding: 20px; text-align: center; }
+            .content { padding: 20px; }
+            .detail { margin: 10px 0; }
+            .price { font-size: 24px; font-weight: bold; color: #d4af37; }
+            .footer { background: #f4f4f4; padding: 15px; text-align: center; font-size: 12px; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>New Estimation Request</h1>
+        </div>
+        <div class="content">
+            <h2>Project Details:</h2>
+            <div class="detail"><strong>Type:</strong> ${data.projectType}</div>
+            <div class="detail"><strong>Class:</strong> ${data.projectClass}</div>
+            <div class="detail"><strong>Area:</strong> ${data.area} sqm</div>
+            <div class="detail"><strong>Total Price:</strong> <span class="price">${formattedPrice}</span></div>
+            <h2>Contact Information:</h2>
+            <div class="detail"><strong>Phone:</strong> ${data.phone}</div>
+            <div class="detail"><strong>Email:</strong> ${data.email}</div>
+            <p><em>This estimation was generated automatically through the website.</em></p>
+        </div>
+        <div class="footer">
+            <p>Interior Fit-Out Company &copy; ${new Date().getFullYear()}</p>
+        </div>
+    </body>
+    </html>
+    `;
+}
+
+function generateClientEmailTemplate(data) {
+    const formattedPrice = new Intl.NumberFormat('en-AE', { style: 'currency', currency: 'AED' }).format(data.totalPrice);
+
+    return `
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <style>
+            body { font-family: Arial, sans-serif; color: #333; }
+            .header { background: #d4af37; color: #000; padding: 20px; text-align: center; }
+            .content { padding: 20px; }
+            .detail { margin: 10px 0; }
+            .price { font-size: 28px; font-weight: bold; color: #d4af37; text-align: center; margin: 20px 0; }
+            .note { background: #f9f9f9; padding: 15px; border-left: 4px solid #d4af37; margin: 20px 0; }
+            .footer { background: #333; color: #fff; padding: 15px; text-align: center; font-size: 12px; }
+        </style>
+    </head>
+    <body>
+        <div class="header">
+            <h1>Your Interior Fit-Out Estimation</h1>
+        </div>
+        <div class="content">
+            <p>Dear Client,</p>
+            <p>Thank you for requesting an estimation for your interior fit-out project. Here are the details:</p>
+            <div class="detail"><strong>Project Type:</strong> ${data.projectType}</div>
+            <div class="detail"><strong>Project Class:</strong> ${data.projectClass}</div>
+            <div class="detail"><strong>Area:</strong> ${data.area} sqm</div>
+            <div class="price">${formattedPrice}</div>
+            <div class="note">
+                <p><strong>Please note:</strong> This is an initial estimation based on the information provided. 
+                Our team will contact you for a detailed quotation including material specifications, timeline, and exact costing.</p>
+            </div>
+            <p>We look forward to helping you create your dream space!</p>
+            <p>Best regards,<br>Interior Fit-Out Team</p>
+        </div>
+        <div class="footer">
+            <p>Interior Fit-Out Company &copy; ${new Date().getFullYear()}</p>
+            <p>Contact: +971 X XXX XXXX | info@interiorfitout.ae</p>
+        </div>
+    </body>
+    </html>
+    `;
+}
+
+// Serve the main page
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
+
+// Start server
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+    console.log(`Visit http://localhost:${PORT} to view the estimation page`);
+});
+
+module.exports = app;
